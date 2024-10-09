@@ -8,29 +8,33 @@ from bidi.algorithm import get_display
 # The reference surah
 REFERENCE_SURAH = "انا اعطيناك الكوثر فصل لربك وانحر ان شانئك هو الابتر"
 
+import whisper
+from pydub import AudioSegment
+import os
+
 def transcribe_audio(file_path):
-    """Transcribes the given audio file and returns the transcribed text."""
+    """Transcribes the given audio file using Whisper AI and returns the transcribed Arabic text."""
     try:
         # Convert any audio format to wav
         sound = AudioSegment.from_file(file_path)  # Automatically handles various formats
         wav_file_path = file_path.rsplit('.', 1)[0] + '.wav'  # Change extension to .wav
         sound.export(wav_file_path, format='wav')
         
-        # Initialize recognizer
-        recognizer = sr.Recognizer()
-
-        with sr.AudioFile(wav_file_path) as source:
-            audio_data = recognizer.record(source)
-            transcribed_text = recognizer.recognize_google(audio_data, language='ar-SA')
+        # Load Whisper model
+        model = whisper.load_model("base")  # You can also use 'tiny', 'small', 'medium', or 'large' models based on the resources available
         
-        os.remove(wav_file_path)  # Clean up the wav file after processing
-        return transcribed_text
-    except sr.UnknownValueError:
-        return "خطأ: لم يتمكن النظام من التعرف على الكلام."
-    except sr.RequestError as e:
-        return f"خطأ في الاتصال بالخدمة: {e}"
+        # Transcribe the audio, specifying that the language is Arabic
+        result = model.transcribe(wav_file_path, language='ar')
+        
+        # Clean up the wav file after processing
+        os.remove(wav_file_path)
+
+        # Return the transcribed text
+        return result['text']
+    
     except Exception as e:
         return f"حدث خطأ: {str(e)}"
+
 
 def compare_texts(reference, transcription):
     """Compares reference text with transcription and returns colored HTML."""
