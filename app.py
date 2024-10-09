@@ -8,7 +8,7 @@ from bidi.algorithm import get_display
 # The reference surah
 REFERENCE_SURAH = "انا اعطيناك الكوثر فصل لربك وانحر ان شانئك هو الابتر"
 
-import whisper
+import openai-whisper
 from pydub import AudioSegment
 import os
 
