@@ -1,16 +1,13 @@
 import streamlit as st
 from pydub import AudioSegment
+import whisper
 import os
-import speech_recognition as sr
 import arabic_reshaper
 from bidi.algorithm import get_display
 
 # The reference surah
 REFERENCE_SURAH = "انا اعطيناك الكوثر فصل لربك وانحر ان شانئك هو الابتر"
 
-import openai-whisper
-from pydub import AudioSegment
-import os
 
 def transcribe_audio(file_path):
     """Transcribes the given audio file using Whisper AI and returns the transcribed Arabic text."""
@@ -110,5 +107,5 @@ def main():
             # Display the result with mismatches highlighted
             st.markdown(f"<p class='arabic-text'>{comparison_html}</p>", unsafe_allow_html=True)
 
-if __name__ == "__main__":  # Corrected line
+if __name__ == "__main__":
     main()
