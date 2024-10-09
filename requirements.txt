@@ -1,8 +1,5 @@
 streamlit
-SpeechRecognition
-arabic-reshaper
-python-bidi
 pydub
 openai-whisper
+arabic-reshaper
 python-bidi
-
