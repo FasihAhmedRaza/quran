@@ -3,3 +3,5 @@ SpeechRecognition
 arabic-reshaper
 python-bidi
 pydub
+python-bidi
+
