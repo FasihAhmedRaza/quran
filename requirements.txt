@@ -3,5 +3,6 @@ SpeechRecognition
 arabic-reshaper
 python-bidi
 pydub
+openai-whisper
 python-bidi
 
